@@ -1,0 +1,22 @@
+server:
+  port: 8123
+  servlet:
+    context-path: /api
+xiyanapi:
+  client:
+    access-key: xiyan
+    secret-key: abcdefgh
+#    secret-key: abcd
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          gateway: trace
+knife4j:
+  config:
+    scan-path: com.xiyan.xiyanapiinterface.controller
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher

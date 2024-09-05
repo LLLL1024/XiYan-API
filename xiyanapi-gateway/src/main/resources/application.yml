@@ -1,0 +1,37 @@
+server:
+  port: 8090
+spring:
+  # 数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/my_api
+    username: root
+    password: 1234
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      default-filters:
+        - AddResponseHeader=xiyan, xiyan # 请求染色
+      routes:
+        - id: api_route # 路由规则唯一标识符
+          uri: http://localhost:8123 # 实际转发地址  # 目标服务地址，匹配此路由规则的将被转发
+          predicates:
+            - Path=/api/**
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          gateway: trace
+dubbo:
+  application:
+    name: xiyanapi-gateway
+  consumer:
+    timeout: 3000
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    id: nacos-registry
+    address: nacos://localhost:8848
